@@ -4,6 +4,10 @@
 	let text = '';
 </script>
 
+<svelte:head>
+	<title>Bikin QR | Harry Hidayat</title>
+</svelte:head>
+
 <div>
 	<input type="text" bind:value={text} placeholder="Your text / link..." />
 	<button
