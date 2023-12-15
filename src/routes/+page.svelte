@@ -77,6 +77,7 @@
 		justify-content: center;
 		align-items: center;
 		flex-direction: column;
+		padding-bottom: 60px;
 	}
 	#app h1 {
 		font-size: x-large;
