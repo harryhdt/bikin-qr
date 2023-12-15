@@ -1,27 +1,65 @@
-type qrConfigProps = {
+type DotType = 'dots' | 'rounded' | 'classy' | 'classy-rounded' | 'square' | 'extra-rounded';
+type CornerDotType = 'dot' | 'square';
+type CornerSquareType = 'dot' | 'square' | 'extra-rounded';
+type GradientType = 'radial' | 'linear';
+type DrawType = 'canvas' | 'svg';
+type Gradient = {
+	type: GradientType;
+	rotation?: number;
+	colorStops: {
+		offset: number;
+		color: string;
+	}[];
+};
+type TypeNumber = 40;
+type ErrorCorrectionLevel = 'L' | 'M' | 'Q' | 'H';
+type Mode = 'Numeric' | 'Alphanumeric' | 'Byte' | 'Kanji';
+type Extension = 'svg' | 'png' | 'jpeg' | 'webp';
+type DownloadOptions = {
+	name?: string;
+	extension?: Extension;
+};
+
+type QRCodeOptions = {
+	type?: DrawType;
 	width?: number;
 	height?: number;
-	type?: string;
+	margin?: number;
 	data?: string;
 	image?: string;
-	margin?: number;
-	dotsOptions?: {
-		color?: string;
-		type?: string;
-	};
-	backgroundOptions?: {
-		color?: string;
+	qrOptions?: {
+		typeNumber?: TypeNumber;
+		mode?: Mode;
+		errorCorrectionLevel?: ErrorCorrectionLevel;
 	};
 	imageOptions?: {
+		hideBackgroundDots?: boolean;
+		imageSize?: number;
 		crossOrigin?: string;
 		margin?: number;
 	};
-	qrConfig?: {
-		fileName?: string;
+	dotsOptions?: {
+		type?: DotType;
+		color?: string;
+		gradient?: Gradient;
 	};
+	cornersSquareOptions?: {
+		type?: CornerSquareType;
+		color?: string;
+		gradient?: Gradient;
+	};
+	cornersDotOptions?: {
+		type?: CornerDotType;
+		color?: string;
+		gradient?: Gradient;
+	};
+	backgroundOptions?: {
+		color?: string;
+		gradient?: Gradient;
+	};
+	downloadOptions?: DownloadOptions;
 };
-
-const defaultConfig = {
+const defaultConfig: QRCodeOptions = {
 	width: 300,
 	height: 300,
 	type: 'svg',
@@ -41,13 +79,16 @@ const defaultConfig = {
 	}
 };
 
-const generateQR = (config: qrConfigProps) => {
-	import('qr-code-styling').then(async ({ default: QRCodeStyling }) => {
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const qrConfig = { ...defaultConfig, ...config } as any;
-		const qrCode = new QRCodeStyling(qrConfig);
-		qrCode.download({ name: qrConfig.qrConfig.fileName, extension: 'png' });
-	});
+const generateQR = (config: QRCodeOptions) => {
+	if ('QRCodeStyling' in window) {
+		const theConfig = { ...defaultConfig, ...config } as QRCodeOptions;
+		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+		// @ts-expect-error
+		const qrCode = new window.QRCodeStyling(theConfig);
+		qrCode.download({ name: theConfig.downloadOptions?.name, extension: 'png' });
+	} else {
+		alert('Something went wrong !!!');
+	}
 };
 
 export { generateQR };
