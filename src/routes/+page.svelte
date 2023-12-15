@@ -11,10 +11,10 @@
 	const generateTheQR = () => {
 		if (!text) return;
 		showLoading = true;
-		// generateQR({
-		// 	data: text,
-		// 	downloadOptions: { name: new Date().getTime().toString() }
-		// });
+		generateQR({
+			data: text,
+			downloadOptions: { name: new Date().getTime().toString() }
+		});
 		text = '';
 		setTimeout(() => {
 			success = true;
