@@ -28,7 +28,12 @@
 
 <svelte:head>
 	<title>Bikin QR | Harry Hidayat</title>
+	<meta
+		name="description"
+		content="Bikin QR Code untuk link atau teks kamu secara bebas dan gratis. Coba sekarang !!!"
+	/>
 	<script
+		defer
 		type="text/javascript"
 		src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"
 	></script>
@@ -85,7 +90,7 @@
 		text-align: center;
 	}
 	#app p {
-		color: #888;
+		color: #555;
 		text-align: center;
 		margin-top: -8px;
 	}
