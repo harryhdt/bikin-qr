@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { generateQR } from '$lib';
+	import IconLoadingDownload from '$lib/icons/IconLoadingDownload.svelte';
+	import IconSuccess from '$lib/icons/IconSuccess.svelte';
 	import { fade, scale } from 'svelte/transition';
 
 	let text = '';
@@ -9,18 +11,18 @@
 	const generateTheQR = () => {
 		if (!text) return;
 		showLoading = true;
-		generateQR({
-			data: text,
-			downloadOptions: { name: new Date().getTime().toString() }
-		});
+		// generateQR({
+		// 	data: text,
+		// 	downloadOptions: { name: new Date().getTime().toString() }
+		// });
 		text = '';
 		setTimeout(() => {
 			success = true;
 			showLoading = false;
 			setTimeout(() => {
 				success = false;
-			}, 4000);
-		}, 500);
+			}, 3000);
+		}, 1000);
 	};
 </script>
 
@@ -35,68 +37,13 @@
 <div id="app">
 	{#if showLoading}
 		<div in:fade={{ duration: 300 }}>
-			<svg
-				in:scale
-				xmlns="http://www.w3.org/2000/svg"
-				width="24"
-				height="24"
-				style="width: 48px; height: 48px; color: #666;"
-				viewBox="0 0 24 24"
-				><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"
-					><path
-						stroke-dasharray="2 4"
-						stroke-dashoffset="6"
-						d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21"
-						><animate
-							attributeName="stroke-dashoffset"
-							dur="0.6s"
-							repeatCount="indefinite"
-							values="6;0"
-						/></path
-					><path
-						stroke-dasharray="30"
-						stroke-dashoffset="30"
-						d="M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3"
-						><animate
-							fill="freeze"
-							attributeName="stroke-dashoffset"
-							begin="0.1s"
-							dur="0.3s"
-							values="30;0"
-						/></path
-					><path stroke-dasharray="10" stroke-dashoffset="10" d="M12 8v7.5"
-						><animate
-							fill="freeze"
-							attributeName="stroke-dashoffset"
-							begin="0.5s"
-							dur="0.2s"
-							values="10;0"
-						/></path
-					><path stroke-dasharray="6" stroke-dashoffset="6" d="M12 15.5l3.5 -3.5M12 15.5l-3.5 -3.5"
-						><animate
-							fill="freeze"
-							attributeName="stroke-dashoffset"
-							begin="0.7s"
-							dur="0.2s"
-							values="6;0"
-						/></path
-					></g
-				></svg
-			>
+			<div in:scale>
+				<IconLoadingDownload />
+			</div>
 		</div>
 	{:else if success}
-		<div in:fade>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="1024"
-				height="1024"
-				style="width: 48px; height: 48px; color: green"
-				viewBox="0 0 1024 1024"
-				><path
-					fill="currentColor"
-					d="M512 64a448 448 0 1 1 0 896a448 448 0 0 1 0-896m-55.808 536.384l-99.52-99.584a38.4 38.4 0 1 0-54.336 54.336l126.72 126.72a38.272 38.272 0 0 0 54.336 0l262.4-262.464a38.4 38.4 0 1 0-54.272-54.336z"
-				/></svg
-			>
+		<div in:scale={{ duration: 300 }}>
+			<IconSuccess />
 		</div>
 	{:else}
 		<div in:fade={{ duration: 300 }}>
