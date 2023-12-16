@@ -21,17 +21,12 @@
 			showLoading = false;
 			setTimeout(() => {
 				success = false;
-			}, 3000);
+			}, 2000);
 		}, 1000);
 	};
 </script>
 
 <svelte:head>
-	<title>Bikin QR | Harry Hidayat</title>
-	<meta
-		name="description"
-		content="Bikin QR Code untuk link atau teks kamu secara bebas dan gratis. Coba sekarang !!!"
-	/>
 	<script
 		defer
 		type="text/javascript"
@@ -51,15 +46,15 @@
 			<IconSuccess />
 		</div>
 	{:else}
-		<div in:fade={{ duration: 300 }}>
+		<div id="qr-generator" in:fade={{ duration: 300 }}>
 			<div>
 				<h1>Bikin QR</h1>
 				<p>Part of <a href="https://harryhdt.dev" target="_blank">harryhdt.dev</a></p>
 			</div>
 			<div id="form">
-				<input type="text" bind:value={text} placeholder="Your text / link..." />
+				<textarea bind:value={text} placeholder="Your text / link..." rows="4" />
 				<button style="cursor: {text ? 'pointer' : 'not-allowed'};" on:click={generateTheQR}
-					>Generate QR</button
+					>Bikin QR</button
 				>
 			</div>
 		</div>
@@ -84,6 +79,11 @@
 		flex-direction: column;
 		padding-bottom: 60px;
 	}
+	#app #qr-generator {
+		width: 100%;
+		max-width: 512px;
+		padding: 16px;
+	}
 	#app h1 {
 		font-size: x-large;
 		font-weight: 600;
@@ -103,20 +103,22 @@
 		text-decoration: underline;
 	}
 	#app #form {
-		display: flex;
-		align-items: center;
-		justify-content: center;
+		text-align: center;
 	}
-	input {
+	textarea {
 		padding: 12px 16px;
 		border: 1px solid #ddd;
 		background: #fafafa;
-		margin-right: -0.5px;
 		position: relative;
 		z-index: 2;
-		max-width: calc(100vw - 105px - 80px);
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		width: calc(100% - 64px);
+		margin-bottom: 8px;
+		resize: none;
 	}
-	input:focus,
+	textarea:focus,
 	button:focus {
 		outline: none;
 		border: 1px solid #ccc;
@@ -127,7 +129,6 @@
 		background: #eee;
 		cursor: pointer;
 		border: 1px solid #ddd;
-		margin-left: -0.5px;
 		white-space: nowrap;
 	}
 	button:hover {

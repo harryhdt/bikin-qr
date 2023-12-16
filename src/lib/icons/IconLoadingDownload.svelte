@@ -2,7 +2,7 @@
 	xmlns="http://www.w3.org/2000/svg"
 	width="24"
 	height="24"
-	style="width: 48px; height: 48px; color: #666;"
+	style="width: 64px; height: 64px; color: #777;"
 	viewBox="0 0 24 24"
 	><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2"
 		><path
